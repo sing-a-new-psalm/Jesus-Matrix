@@ -6,12 +6,12 @@
     <title>The Jesus Matrix</title>
     
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="https://github.com/sing-a-new-psalm/Jesus-Matrix/raw/main/Jesus%20Matrix.png">
+    <link rel="icon" type="image/x-icon" href="https://raw.githubusercontent.com/sing-a-new-psalm/Jesus-Matrix/main/Jesus%20Matrix.png">
     
     <!-- Social Media Meta Tags -->
     <meta property="og:title" content="The Jesus Matrix">
     <meta property="og:description" content="Are you or anyone you know suffering from a mental condition called 'Jesus Matrix?' Answer 10 questions to understand If you are living in the Jesus Matrix! Hey what do you have to loose, salvation?">
-    <meta property="og:image" content="https://github.com/sing-a-new-psalm/Jesus-Matrix/raw/main/Jesus%20Matrix.png">
+    <meta property="og:image" content="https://raw.githubusercontent.com/sing-a-new-psalm/Jesus-Matrix/main/Jesus%20Matrix.png">
     <meta property="og:image:width" content="1200">
     <meta property="og:image:height" content="630">
     <meta property="og:url" content="https://yourdomain.com">
@@ -19,7 +19,7 @@
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:title" content="The Jesus Matrix">
     <meta name="twitter:description" content="Are you or anyone you know suffering from a mental condition called 'Jesus Matrix?' Answer 10 questions to understand If you are living in the Jesus Matrix! Hey what do you have to loose, salvation?">
-    <meta name="twitter:image" content="https://github.com/sing-a-new-psalm/Jesus-Matrix/raw/main/Jesus%20Matrix.png">
+    <meta name="twitter:image" content="https://raw.githubusercontent.com/sing-a-new-psalm/Jesus-Matrix/main/Jesus%20Matrix.png">
     
     <style>
         * {
@@ -35,6 +35,7 @@
             line-height: 1.6;
             overflow-x: hidden;
             position: relative;
+            cursor: pointer; /* Indicate the page is interactive */
         }
 
         .matrix-bg {
@@ -67,6 +68,7 @@
             margin-bottom: 20px;
             border: 2px solid #00ff00;
             box-shadow: 0 0 15px #00ff00;
+            max-height: 300px;
         }
 
         h1, h2, h3 {
@@ -194,32 +196,6 @@
             margin-top: 40px;
         }
 
-        .audio-controls {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            background-color: rgba(0, 0, 0, 0.8);
-            padding: 10px;
-            border: 1px solid #00ff00;
-            border-radius: 5px;
-            z-index: 100;
-        }
-
-        .audio-controls button {
-            background-color: #00ff00;
-            color: #000;
-            border: none;
-            padding: 8px 15px;
-            margin: 0 5px;
-            cursor: pointer;
-            font-family: 'Courier New', monospace;
-            font-weight: bold;
-        }
-
-        .audio-controls button:hover {
-            background-color: #00cc00;
-        }
-
         /* Contact Form Styles */
         .contact-form {
             max-width: 600px;
@@ -280,6 +256,11 @@
             transform: scale(1.05);
         }
 
+        .contact-intro {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
         @media (max-width: 768px) {
             h1 {
                 font-size: 2.5rem;
@@ -287,13 +268,6 @@
             
             h2 {
                 font-size: 1.5rem;
-            }
-            
-            .audio-controls {
-                bottom: 10px;
-                right: 10px;
-                left: 10px;
-                text-align: center;
             }
         }
     </style>
@@ -303,7 +277,7 @@
     
     <div class="container">
         <header>
-            <img src="https://github.com/sing-a-new-psalm/Jesus-Matrix/raw/main/Jesus%20Matrix.png" alt="The Jesus Matrix" class="header-image">
+            <img src="https://raw.githubusercontent.com/sing-a-new-psalm/Jesus-Matrix/main/Jesus%20Matrix.png" alt="The Jesus Matrix" class="header-image" onerror="this.style.display='none'">
             <h1 class="glitch">The Jesus Matrix</h1>
             <p>Wake up from the illusion of modern Christianity</p>
         </header>
@@ -373,7 +347,9 @@
         <!-- Contact Form Section -->
         <section class="content-section">
             <h2>Contact Us</h2>
-            <p>Have questions about The Jesus Matrix? Want to share your experience? Reach out to us.</p>
+            <div class="contact-intro">
+                <p>Have questions about The Jesus Matrix? Want to share your experience? Reach out to us.</p>
+            </div>
             
             <form class="contact-form" action="https://formsubmit.co/singanewpsalm23@gmail.com" method="POST">
                 <!-- FormSubmit Configuration -->
@@ -412,15 +388,8 @@
         </footer>
     </div>
 
-    <!-- Audio Controls -->
-    <div class="audio-controls">
-        <button id="playBtn">Play Audio</button>
-        <button id="pauseBtn">Pause Audio</button>
-        <button id="stopBtn">Stop Audio</button>
-    </div>
-
-    <!-- Audio Element -->
-    <audio id="matrixAudio" loop>
+    <!-- Audio Element (hidden, no controls) -->
+    <audio id="matrixAudio" loop preload="auto">
         <source src="https://github.com/sing-a-new-psalm/Jesus-Matrix/raw/main/(Vere-1).mp3" type="audio/mpeg">
         Your browser does not support the audio element.
     </audio>
@@ -477,32 +446,31 @@
             title.classList.toggle('glitch');
         }, 3000);
         
-        // Audio functionality
+        // Audio functionality - auto play on any interaction
         const audio = document.getElementById('matrixAudio');
-        const playBtn = document.getElementById('playBtn');
-        const pauseBtn = document.getElementById('pauseBtn');
-        const stopBtn = document.getElementById('stopBtn');
         
-        // Play audio on user interaction
+        // Play audio function
         function playAudio() {
-            audio.play().catch(e => {
+            // Create an audio context if needed (for mobile devices)
+            if (typeof AudioContext !== "undefined" || typeof webkitAudioContext !== "undefined") {
+                const AudioContext = window.AudioContext || window.webkitAudioContext;
+                const audioContext = new AudioContext();
+                
+                // Resume the audio context on user interaction
+                if (audioContext.state === 'suspended') {
+                    audioContext.resume();
+                }
+            }
+            
+            // Play the audio
+            audio.play().then(() => {
+                console.log("Audio started successfully");
+            }).catch(e => {
                 console.log("Audio play failed:", e);
             });
         }
         
-        // Event listeners for audio controls
-        playBtn.addEventListener('click', playAudio);
-        
-        pauseBtn.addEventListener('click', () => {
-            audio.pause();
-        });
-        
-        stopBtn.addEventListener('click', () => {
-            audio.pause();
-            audio.currentTime = 0;
-        });
-        
-        // Play audio on scroll or click anywhere on the page
+        // Play audio on any user interaction
         let audioStarted = false;
         
         function startAudioOnInteraction() {
@@ -511,18 +479,32 @@
                 audioStarted = true;
                 // Remove event listeners after first interaction
                 document.removeEventListener('click', startAudioOnInteraction);
+                document.removeEventListener('touchstart', startAudioOnInteraction);
                 document.removeEventListener('scroll', startAudioOnInteraction);
+                document.removeEventListener('keydown', startAudioOnInteraction);
             }
         }
         
+        // Add multiple event listeners to ensure audio starts on any interaction
         document.addEventListener('click', startAudioOnInteraction);
+        document.addEventListener('touchstart', startAudioOnInteraction);
         document.addEventListener('scroll', startAudioOnInteraction);
+        document.addEventListener('keydown', startAudioOnInteraction);
         
         // Red pill interaction
         const redPill = document.getElementById('redPill');
         redPill.addEventListener('click', function() {
             alert("You've chosen to wake up from The Jesus Matrix. The journey begins now.");
-            playAudio();
+            if (!audioStarted) {
+                playAudio();
+                audioStarted = true;
+            }
+        });
+        
+        // Try to preload the audio
+        window.addEventListener('load', function() {
+            // Preload the audio file
+            audio.load();
         });
     </script>
 </body>
