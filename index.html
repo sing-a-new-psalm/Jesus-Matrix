@@ -41,6 +41,15 @@
             padding: 40px 0;
             border-bottom: 1px solid #00ff00;
             margin-bottom: 40px;
+            position: relative;
+        }
+
+        .header-image {
+            max-width: 100%;
+            height: auto;
+            margin-bottom: 20px;
+            border: 2px solid #00ff00;
+            box-shadow: 0 0 15px #00ff00;
         }
 
         h1 {
@@ -76,12 +85,23 @@
             border: 1px solid #00ff00;
             border-radius: 20px;
             font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .pill:hover {
+            background-color: rgba(0, 255, 0, 0.3);
+            transform: scale(1.05);
         }
 
         .red-pill {
             background-color: rgba(255, 0, 0, 0.1);
             border-color: #ff0000;
             color: #ff6666;
+        }
+
+        .red-pill:hover {
+            background-color: rgba(255, 0, 0, 0.3);
         }
 
         .content-section {
@@ -153,6 +173,32 @@
             margin-top: 40px;
         }
 
+        .audio-controls {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: rgba(0, 0, 0, 0.8);
+            padding: 10px;
+            border: 1px solid #00ff00;
+            border-radius: 5px;
+            z-index: 100;
+        }
+
+        .audio-controls button {
+            background-color: #00ff00;
+            color: #000;
+            border: none;
+            padding: 8px 15px;
+            margin: 0 5px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+        }
+
+        .audio-controls button:hover {
+            background-color: #00cc00;
+        }
+
         @media (max-width: 768px) {
             h1 {
                 font-size: 2.5rem;
@@ -160,6 +206,13 @@
             
             h2 {
                 font-size: 1.5rem;
+            }
+            
+            .audio-controls {
+                bottom: 10px;
+                right: 10px;
+                left: 10px;
+                text-align: center;
             }
         }
     </style>
@@ -169,6 +222,7 @@
     
     <div class="container">
         <header>
+            <img src="https://github.com/sing-a-new-psalm/Jesus-Matrix/raw/main/Jesus%20Matrix.png" alt="The Jesus Matrix" class="header-image">
             <h1 class="glitch">The Jesus Matrix</h1>
             <p>Wake up from the illusion of modern Christianity</p>
         </header>
@@ -230,7 +284,7 @@
             <h2>Take the Red Pill</h2>
             <p>You have a choice: continue in the comfortable illusion of The Jesus Matrix, or wake up to the radical, challenging truth of following the actual Jesus.</p>
             
-            <span class="pill red-pill">Wake Up</span>
+            <span class="pill red-pill" id="redPill">Wake Up</span>
             
             <p style="margin-top: 20px;">The real Jesus is waiting outside the locked church doors.</p>
         </section>
@@ -240,6 +294,19 @@
             <p>Based on the actual teachings of Jesus Christ in the Gospels</p>
         </footer>
     </div>
+
+    <!-- Audio Controls -->
+    <div class="audio-controls">
+        <button id="playBtn">Play Audio</button>
+        <button id="pauseBtn">Pause Audio</button>
+        <button id="stopBtn">Stop Audio</button>
+    </div>
+
+    <!-- Audio Element -->
+    <audio id="matrixAudio" loop>
+        <source src="https://github.com/sing-a-new-psalm/Jesus-Matrix/raw/main/(Vere-1).mp3" type="audio/mpeg">
+        Your browser does not support the audio element.
+    </audio>
 
     <script>
         // Matrix background effect
@@ -292,6 +359,54 @@
         setInterval(() => {
             title.classList.toggle('glitch');
         }, 3000);
+        
+        // Audio functionality
+        const audio = document.getElementById('matrixAudio');
+        const playBtn = document.getElementById('playBtn');
+        const pauseBtn = document.getElementById('pauseBtn');
+        const stopBtn = document.getElementById('stopBtn');
+        
+        // Play audio on user interaction
+        function playAudio() {
+            audio.play().catch(e => {
+                console.log("Audio play failed:", e);
+            });
+        }
+        
+        // Event listeners for audio controls
+        playBtn.addEventListener('click', playAudio);
+        
+        pauseBtn.addEventListener('click', () => {
+            audio.pause();
+        });
+        
+        stopBtn.addEventListener('click', () => {
+            audio.pause();
+            audio.currentTime = 0;
+        });
+        
+        // Play audio on scroll or click anywhere on the page
+        let audioStarted = false;
+        
+        function startAudioOnInteraction() {
+            if (!audioStarted) {
+                playAudio();
+                audioStarted = true;
+                // Remove event listeners after first interaction
+                document.removeEventListener('click', startAudioOnInteraction);
+                document.removeEventListener('scroll', startAudioOnInteraction);
+            }
+        }
+        
+        document.addEventListener('click', startAudioOnInteraction);
+        document.addEventListener('scroll', startAudioOnInteraction);
+        
+        // Red pill interaction
+        const redPill = document.getElementById('redPill');
+        redPill.addEventListener('click', function() {
+            alert("You've chosen to wake up from The Jesus Matrix. The journey begins now.");
+            playAudio();
+        });
     </script>
 </body>
 </html>
