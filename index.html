@@ -4,6 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>The Jesus Matrix</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="https://github.com/sing-a-new-psalm/Jesus-Matrix/raw/main/Jesus%20Matrix.png">
+    
+    <!-- Social Media Meta Tags -->
+    <meta property="og:title" content="The Jesus Matrix">
+    <meta property="og:description" content="Are you or anyone you know suffering from a mental condition called 'Jesus Matrix?' Answer 10 questions to understand If you are living in the Jesus Matrix! Hey what do you have to loose, salvation?">
+    <meta property="og:image" content="https://github.com/sing-a-new-psalm/Jesus-Matrix/raw/main/Jesus%20Matrix.png">
+    <meta property="og:url" content="https://yourdomain.com">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="The Jesus Matrix">
+    <meta name="twitter:description" content="Are you or anyone you know suffering from a mental condition called 'Jesus Matrix?' Answer 10 questions to understand If you are living in the Jesus Matrix! Hey what do you have to loose, salvation?">
+    <meta name="twitter:image" content="https://github.com/sing-a-new-psalm/Jesus-Matrix/raw/main/Jesus%20Matrix.png">
+    
     <style>
         * {
             margin: 0;
@@ -50,6 +64,10 @@
             margin-bottom: 20px;
             border: 2px solid #00ff00;
             box-shadow: 0 0 15px #00ff00;
+        }
+
+        h1, h2, h3 {
+            text-align: center;
         }
 
         h1 {
@@ -199,6 +217,66 @@
             background-color: #00cc00;
         }
 
+        /* Contact Form Styles */
+        .contact-form {
+            max-width: 600px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: rgba(0, 0, 0, 0.7);
+            border: 1px solid #00ff00;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            color: #00ff00;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 10px;
+            background-color: rgba(0, 0, 0, 0.8);
+            border: 1px solid #00ff00;
+            color: #00ff00;
+            font-family: 'Courier New', monospace;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: #ffff00;
+            box-shadow: 0 0 5px #ffff00;
+        }
+
+        .required::after {
+            content: " *";
+            color: #ff0000;
+        }
+
+        .submit-btn {
+            background-color: #00ff00;
+            color: #000;
+            border: none;
+            padding: 12px 25px;
+            cursor: pointer;
+            font-family: 'Courier New', monospace;
+            font-weight: bold;
+            font-size: 1rem;
+            display: block;
+            margin: 0 auto;
+            transition: all 0.3s ease;
+        }
+
+        .submit-btn:hover {
+            background-color: #00cc00;
+            transform: scale(1.05);
+        }
+
         @media (max-width: 768px) {
             h1 {
                 font-size: 2.5rem;
@@ -287,6 +365,42 @@
             <span class="pill red-pill" id="redPill">Wake Up</span>
             
             <p style="margin-top: 20px;">The real Jesus is waiting outside the locked church doors.</p>
+        </section>
+        
+        <!-- Contact Form Section -->
+        <section class="content-section">
+            <h2>Contact Us</h2>
+            <p>Have questions about The Jesus Matrix? Want to share your experience? Reach out to us.</p>
+            
+            <form class="contact-form" action="https://formsubmit.co/singanewpsalm23@gmail.com" method="POST">
+                <!-- FormSubmit Configuration -->
+                <input type="hidden" name="_subject" value="New Contact Form Submission - Jesus Matrix">
+                <input type="hidden" name="_captcha" value="false">
+                <input type="hidden" name="_template" value="table">
+                <input type="hidden" name="_next" value="https://yourdomain.com/thank-you.html">
+                
+                <div class="form-group">
+                    <label for="name" class="required">Name</label>
+                    <input type="text" id="name" name="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">Phone</label>
+                    <input type="tel" id="phone" name="phone">
+                </div>
+                
+                <div class="form-group">
+                    <label for="email" class="required">Email</label>
+                    <input type="email" id="email" name="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="message">Message</label>
+                    <textarea id="message" name="message" rows="5"></textarea>
+                </div>
+                
+                <button type="submit" class="submit-btn">Send Message</button>
+            </form>
         </section>
         
         <footer>
